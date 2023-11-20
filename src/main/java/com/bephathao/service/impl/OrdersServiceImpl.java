@@ -8,8 +8,6 @@ import com.bephathao.repository.IOrderDetailRepository;
 import com.bephathao.repository.IOrdersRepository;
 import com.bephathao.service.IOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +21,6 @@ public class OrdersServiceImpl implements IOrdersService {
     private IOrdersRepository ordersRepository;
     @Autowired
     private IOrderDetailRepository orderDetailRepository;
-
-    @Override
-    public Page<Orders> getAll(int page, int size) {
-        return ordersRepository.findAll(PageRequest.of(page, size));
-    }
 
     @Override
     public void saveOrdersAndOrderDetail(OrderDto orderDto) {

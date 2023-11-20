@@ -19,7 +19,7 @@ public class OrderController {
             orderService.saveOrdersAndOrderDetail(orderDto);
             return ResponseEntity.ok("Create order success!");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

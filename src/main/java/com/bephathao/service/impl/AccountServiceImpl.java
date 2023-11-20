@@ -64,7 +64,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public Account createAccount(Account account) {
         account.setPassword(encodePassword(account.getPassword()));
-        Role role = roleRepository.findByName("USER");
+        Role role = roleRepository.findByName("ROLE_USER");
         account.setRole(role);
         account.setCreatedAt(LocalDate.now());
         return accountRepository.save(account);

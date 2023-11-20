@@ -1,5 +1,6 @@
 package com.bephathao.controller;
 
+import com.bephathao.entity.Review;
 import com.bephathao.service.IReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class ReviewController {
         try {
             return ResponseEntity.ok(reviewService.findAllByProductId(productId, page, size));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -28,7 +29,7 @@ public class ReviewController {
         try {
             return ResponseEntity.ok(reviewService.totalReviews(productId));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -37,7 +38,16 @@ public class ReviewController {
         try {
             return ResponseEntity.ok(reviewService.averageRatingByProductId(productId));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createReview(@RequestBody Review review){
+        try {
+            return ResponseEntity.ok(reviewService.createReview(review));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

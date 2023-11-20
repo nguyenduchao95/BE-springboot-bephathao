@@ -20,7 +20,7 @@ public class CategoryController {
         try {
             return ResponseEntity.ok(categoryService.getAll());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

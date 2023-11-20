@@ -1,5 +1,6 @@
 package com.bephathao.controller;
 
+import com.bephathao.dto.FilterDto;
 import com.bephathao.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,16 +21,16 @@ public class ProductController {
         try {
             return ResponseEntity.ok(productService.getAll(page, size));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<?> getById(@PathVariable Long productId){
+    public ResponseEntity<?> getById(@PathVariable Long productId) {
         try {
             return ResponseEntity.ok(productService.getProductById(productId));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -41,25 +42,18 @@ public class ProductController {
         try {
             return ResponseEntity.ok(productService.findAllByCategoryId(categoryId, productId, page, size));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
-    @GetMapping("/filter")
-    public ResponseEntity<?> filter(@RequestParam(name = "categoryIds", required = false) List<Long> categoryIds,
-                                    @RequestParam(name = "brandIds", required = false) List<Long> brandIds,
-                                    @RequestParam(name = "min", defaultValue = "0") Double min,
-                                    @RequestParam(name = "max", required = false) Double max,
-                                    @RequestParam(name = "sortBy", defaultValue = "default") String sortBy,
+    @PostMapping("/filter")
+    public ResponseEntity<?> filter(@RequestBody FilterDto filterDto,
                                     @RequestParam(name = "page", defaultValue = "0") int page,
-                                    @RequestParam(name = "size", defaultValue = "12") int size,
-                                    @RequestParam(name = "nameSearch", defaultValue = "") String nameSearch,
-                                    @RequestParam(name = "status", defaultValue = "") String status
-                                    ) {
+                                    @RequestParam(name = "size", defaultValue = "12") int size) {
         try {
-            return ResponseEntity.ok(productService.filter(categoryIds, brandIds, min, max, sortBy, page, size, nameSearch, status));
+            return ResponseEntity.ok(productService.filter(filterDto, page, size));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.bephathao.service;
 
+import com.bephathao.dto.FilterDto;
 import com.bephathao.entity.Product;
 import org.springframework.data.domain.Page;
 
@@ -11,7 +12,7 @@ public interface IProductService {
 
     Page<Product> findAllByCategoryId(Long categoryId, Long productId, int page, int size);
 
-    Page<Product> filter(List<Long> categoryIds, List<Long> brandIds, Double min, Double max, String sortBy, int page, int size, String nameSearch, String status);
+    Page<Product> filter(FilterDto filterDto, int page, int size);
 
     Product getProductById(Long id);
 }

@@ -64,7 +64,7 @@ public class LoginRegisterController {
         try {
             return ResponseEntity.ok(accountService.createAccount(account));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

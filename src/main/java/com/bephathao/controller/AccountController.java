@@ -19,7 +19,7 @@ public class AccountController {
         try {
             return ResponseEntity.ok(accountService.findById(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -28,7 +28,7 @@ public class AccountController {
         try {
             return ResponseEntity.ok(accountService.editAccountInfo(id, account));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -37,7 +37,7 @@ public class AccountController {
         try {
             return ResponseEntity.ok(accountService.changePassword(id, account));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class AccountController {
         try {
             return ResponseEntity.ok(accountService.findAllOrdersByAccountId(accountId, filterDto, page, size));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class AccountController {
         try {
             return ResponseEntity.ok(accountService.findOrderDetailByOrdersId(ordersId));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

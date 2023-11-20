@@ -10,7 +10,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId AND p.id != :productId")
+    @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId " +
+            "AND p.id != :productId AND p.status = 'Còn hàng'")
     Page<Product> findAllByCategoryId(@Param("categoryId") Long categoryId,
                                       @Param("productId") Long productId,
                                       Pageable pageable);

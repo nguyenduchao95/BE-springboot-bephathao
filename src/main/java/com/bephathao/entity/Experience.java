@@ -1,25 +1,25 @@
 package com.bephathao.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Data
-public class Review {
+@Getter
+@Setter
+@NoArgsConstructor
+public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String phoneNumber;
-    private Integer rating;
-    @Column(columnDefinition = "TEXT")
-    private String comment;
+    private String title;
     @Column(columnDefinition = "TEXT")
     private String avatar;
-    private String status = "Chờ duyệt";
+    @Column(columnDefinition = "TEXT")
+    private String content;
     private LocalDate createdAt = LocalDate.now();
-    @ManyToOne
-    private Product product;
+    private Long view = 0L;
 }

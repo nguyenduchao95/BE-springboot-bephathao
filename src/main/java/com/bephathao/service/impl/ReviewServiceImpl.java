@@ -15,7 +15,7 @@ public class ReviewServiceImpl implements IReviewService {
 
     @Override
     public Page<Review> findAllByProductId(Long productId, int page, int size) {
-        return reviewRepository.findAllByProductId(productId, PageRequest.of(page, size));
+        return reviewRepository.findAllByProductIdAndStatus(productId, "Đã duyệt", PageRequest.of(page, size));
     }
 
     @Override
@@ -27,5 +27,10 @@ public class ReviewServiceImpl implements IReviewService {
     public Double averageRatingByProductId(Long productId) {
         Double avgRating = reviewRepository.averageRatingByProductId(productId);
         return Math.round(avgRating * 10) / 10.0;
+    }
+
+    @Override
+    public Review createReview(Review review) {
+        return reviewRepository.save(review);
     }
 }

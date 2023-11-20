@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -17,8 +18,11 @@ public class Orders {
     private String code;
     private Integer quantityProduct;
     private Double totalPrice;
+    @NotBlank
     private String customer;
+    @NotBlank
     private String phoneNumber;
+    @NotBlank
     private String address;
     private String shipTo;
     private String payment;
@@ -26,6 +30,7 @@ public class Orders {
     @ManyToOne
     private Account account;
     private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     public Orders(OrderDto orderDto){
         this.code = "BTH-" + System.currentTimeMillis();

@@ -2,6 +2,7 @@ package com.bephathao.config;
 
 import com.bephathao.service.impl.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,8 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
+    @Value("${app.FE_URL}")
+    private String FE_URL;
 
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -51,15 +54,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/login-register/**", "/api/categories/**", "/api/brands/**", "/api/products/**").permitAll()
-                .antMatchers("/api/images/**", "/api/informations/**", "/api/reviews/**", "/api/orders/**", "/api/banners").permitAll()
+                .antMatchers("/api/login-register/**", "/api/categories/**", "/api/brands/**", "/api/products/**", "/api/policy-support/**").permitAll()
+                .antMatchers("/api/images/**", "/api/informations/**", "/api/reviews/**", "/api/orders/**", "/api/banners", "/api/experiences/**").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/accounts/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
@@ -76,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList(FE_URL));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));

@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 public interface IReviewService {
     Page<Review> findAllByProductId(Long productId, int page, int size);
     Long totalReviews(Long productId);
-
     Double averageRatingByProductId(Long productId);
+    Review createReview(Review review);
 }
